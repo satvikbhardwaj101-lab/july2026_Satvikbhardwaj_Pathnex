@@ -1,4 +1,4 @@
-
+1
 ```yaml
 - name: Install Nginx on Pathnex server
   hosts: all
