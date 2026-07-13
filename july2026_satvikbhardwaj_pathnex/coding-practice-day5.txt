@@ -1,0 +1,64 @@
+ipeline {
+    agent any
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git 'https://github.com/pathnex/sample-repo.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'Building project from Git repository'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Running unit tests'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying application'
+            }
+        }
+    }
+}
+    - docker build -t pathnex-app .
+  - docker push pathnex-app
+ - kubectl apply -f kubernetes/deployment.yaml
+
+
+- name: Create a new user
+  hosts: all
+  become: yes
+  tasks:
+    - name: Create user
+      user:
+        name: pathnex
+        state: present
+        shell: /bin/bash
+    - name: Set permissions for the user
+      file:
+        path: /home/pathnex
+        owner: pathnex
+        group: pathnex
+        mode: '0755'
+
+
+resource "aws_instance" "PathnexEC2" {
+  ami           = "ami-0abcd1234abcd1234"
+  instance_type = "t2.medium"
+  
+  tags = {
+    Name = "Pathnex-Server"
+  }
+
+  ebs_block_device {
+    device_name = "/dev/sdh"
+    volume_size = 50
+  }
+}
+print("Hello Pathnex")
+
+CMD ["python", "/opt/pathnex/python-app/app.py"]
+/opt/pathnex/python-app
